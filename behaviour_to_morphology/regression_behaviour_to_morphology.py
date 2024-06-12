@@ -47,10 +47,11 @@ def predict_for_new_data(models, P_columns):
     new_data = new_data_df.iloc[0].to_dict()
     input_df = pd.DataFrame([new_data], columns=P_columns)
 
-    print("\nPredictions for new data:")
-    for m_col, model in models.items():
-        prediction = model.predict(input_df[P_columns])
-        print(f"Predicted {m_col}: {prediction[0]}")
+    with open('predictions.txt', 'w') as f:
+        f.write("Predictions for new data:\n")
+        for m_col, model in models.items():
+            prediction = model.predict(input_df[P_columns])
+            f.write(f"Predicted {m_col}: {prediction[0]}\n")
 
 def save_regression_coefficients(models, P_columns, output_file):
     coefficients_data = []
